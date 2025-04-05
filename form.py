@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template_string
+from flask import Flask, request, render_template_string, render_template
 from app import setup_database, get_response
 
 # Create a separate Flask app for the form interface
@@ -16,6 +16,18 @@ HTML_TEMPLATE = """
         .bot-response { background-color: #e6f7ff; padding: 10px; border-radius: 5px; margin: 10px 0; }
         input[type="text"] { width: 70%; padding: 10px; margin-right: 10px; }
         input[type="submit"] { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; }
+        .history-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .history-button:hover {
+            background-color: #0b7dda;
+        }
     </style>
 </head>
 <body>
@@ -30,10 +42,13 @@ HTML_TEMPLATE = """
             <input type="text" name="user_input" placeholder="Ask me anything..." required>
             <input type="submit" value="Send">
         </form>
+
+        <a href="/history" class="history-button">View History</a>
     </div>
 </body>
 </html>
 """
+
 
 @form_app.route("/", methods=["GET", "POST"])
 def chat_interface():
@@ -58,5 +73,13 @@ def chat_interface():
 
     return render_template_string(HTML_TEMPLATE, query=query, response=response, history=history)
 
+@form_app.route("/history")
+def chat_history():
+    conn, cursor = setup_database()
+    cursor.execute("SELECT query, response FROM chat_history ORDER BY id ASC")
+    rows = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template("history.html", history=rows)
 if __name__ == "__main__":
     form_app.run(port=5001)  # Runs on different port than app.py

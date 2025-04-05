@@ -1,0 +1,75 @@
+<!-- templates/history.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat History</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .entry {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .user {
+            font-weight: bold;
+            color: #4a4a4a;
+        }
+
+        .bot {
+            margin-top: 5px;
+            padding-left: 20px;
+            color: #007acc;
+        }
+
+        .timestamp {
+            font-size: 0.9em;
+            color: #888;
+            text-align: right;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007acc;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>Full Chat History</h1>
+    {% for q, a in history %}
+        <div class="entry">
+            <div class="user">You: {{ q }}</div>
+            <div class="bot">Bot: {{ a }}</div>
+        </div>
+    {% endfor %}
+    <a href="/">Back to Chat</a>
+    </div>
+</body>
+</html>
