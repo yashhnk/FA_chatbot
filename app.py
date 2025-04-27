@@ -167,7 +167,7 @@ class StateMachine:
 
 
 
-# Extract location from weather queries
+
 def extract_location(user_input):
     patterns = [
         r'weather in ([a-zA-Z\s]+)',
@@ -218,7 +218,7 @@ def get_weather_from_api(location):
     except Exception as e:
         return f"Error fetching weather data: {str(e)}"
 
-# Extract travel places from user input
+
 def extract_places(user_input):
     # Match multiple patterns including missing prepositions
     patterns = [
@@ -295,7 +295,6 @@ def calculate_math_expression(user_input):
     except Exception as e:
         return f"Calculation error: {str(e)}. Please check your input format."
 
-# Fetch response from database or APIs
 def get_response(user_input, cursor):
     state_machine = StateMachine()
     state = state_machine.transition(user_input)
@@ -377,7 +376,7 @@ def get_response_api():
             conn.close()
 @app.route("/")
 def home():
-    return "Chatbot is running. Use the appropriate route to talk to it."
+    return "Chatbot is running. Use the appropriate route to talk to it.."
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
