@@ -76,8 +76,11 @@ def chat_interface():
 @form_app.route("/history")
 def chat_history():
     conn, cursor = setup_database()
-    cursor.execute("SELECT query, response FROM chat_history ORDER BY id ASC")
+    cursor.execute("SELECT query, response, timestamp FROM chat_history ORDER BY id ASC")
     rows = cursor.fetchall()
+    print("=== Chat History ===")
+    for row in rows:
+        print(row)
     cursor.close()
     conn.close()
     return render_template("history.html", history=rows)

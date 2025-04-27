@@ -63,8 +63,9 @@
 <body>
     <div class="container">
     <h1>Full Chat History</h1>
-    {% for q, a in history %}
+    {% for q, a, t in history %}
         <div class="entry">
+            <div class="timestamp">{{ t }}</div>
             <div class="user">You: {{ q }}</div>
             <div class="bot">Bot: {{ a }}</div>
         </div>
